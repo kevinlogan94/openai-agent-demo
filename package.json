@@ -1,0 +1,27 @@
+{
+  "name": "openai-agent-demo",
+  "version": "1.0.0",
+  "description": "A demo CLI application showcasing OpenAI SDK with weather agent capabilities",
+  "type": "module",
+  "scripts": {
+    "dev": "unbuild --stub && node dist/index.mjs",
+    "build": "unbuild",
+    "start": "pnpm build && node dist/index.mjs",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": ["openai", "cli", "weather", "agent", "demo", "unjs"],
+  "author": "Kevin Logan",
+  "license": "MIT",
+  "dependencies": {
+    "citty": "^0.1.6",
+    "consola": "^3.2.3",
+    "dotenv": "^16.4.5",
+    "ofetch": "^1.4.1",
+    "openai": "^5.10.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.5.4",
+    "typescript": "^5.6.2",
+    "unbuild": "^2.0.0"
+  }
+}
