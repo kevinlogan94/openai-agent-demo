@@ -17,7 +17,7 @@ export class WeatherAgent {
     try {
       consola.start('Starting Agentic Process...')
 
-      consola.info('Step 1: Passing user input to openai...')
+      consola.info(`Step 1: User Query -> LLM`)
       // Use the Responses API with weather tool
       const response = await this.openai.responses.create({
         model: 'gpt-4.1-mini',
@@ -36,10 +36,10 @@ export class WeatherAgent {
             const args = JSON.parse(toolCall.arguments)
             
             try {
-              consola.info(`Step 2: OpenAI requests us to trigger weather tool for: ${args.location}`)
+              consola.info(`Step 2: LLM -> Tool`)
               const weatherData = await this.weatherService.getCurrentWeather(args.location)
 
-              consola.info('Step 3: Pass weather data from our weather tool back to openai...')
+              consola.info(`Step 3: Tool -> LLM`)
               // Create a follow-up response with weather data
               const followUpResponse = await this.openai.responses.create({
                 model: 'gpt-4.1-mini',
@@ -48,7 +48,7 @@ export class WeatherAgent {
                 input: `The user asked: "${userInput}". Here's the weather data: ${JSON.stringify(weatherData)}`
               })
               
-              consola.info('Step 4: OpenAI returns formatted weather response...')
+              consola.info(`Step 4: LLM -> Final Response`)
               return followUpResponse.output_text || 'I received the weather data but had trouble formatting the response.'
             } catch (error) {
               return `I'm sorry, I couldn't get the weather information for that location. Please check the location name and try again.`
@@ -57,7 +57,7 @@ export class WeatherAgent {
         }
       }
 
-      consola.info('Step 2: OpenAI determined no tools needed - responding directly')
+      consola.info(`Step 2: LLM -> Final Response`)
       return response.output_text || 'I apologize, but I had trouble processing your request.'
       
     } catch (error) {
