@@ -26,7 +26,7 @@ export class WeatherService {
         query: {
           q: location,
           appid: this.apiKey,
-          units: 'metric'
+          units: 'imperial'
         }
       })
       
@@ -65,7 +65,7 @@ export const weatherToolDefinition = {
     properties: {
       location: {
         type: 'string',
-        description: 'Only return the city name, e.g. "Cincinnati" instead of "Cincinnati, OH"'
+        description: 'Only the city name, e.g. "Cincinnati" instead of "Cincinnati, OH"'
       }
     },
     required: ['location'],
